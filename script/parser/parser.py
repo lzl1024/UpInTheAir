@@ -54,8 +54,6 @@ csvFile.close()
 
 opener = urllib.URLopener()
 
-i = 0;
-
 # iterate all files
 for s3url in tweet_file_list:
     tweet_file = opener.open(s3url)
@@ -84,10 +82,7 @@ for s3url in tweet_file_list:
                 table[originalId] = newUser
 
     tweet_file.close()
-    if i > 2:
-        break
-    else:
-        i = i + 1
+
 
 
 # open a file to write the result
