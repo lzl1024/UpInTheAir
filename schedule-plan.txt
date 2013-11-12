@@ -1,0 +1,22 @@
+1. 11.19 due, connect sample db with frontend done
+2. 11.23 due, asg done
+3. 11.26 due, whole done. (test)
+
+plan a: 
+memory table:  userid(key), number of tweets (less than 1G)
+sql: userid(key), retweet list
+hbase: time(key), tweetid:tweet_text List
+
+plan b: 
+sql userid(key), number of tweets, retweet list (less than 10G)
+hbase: time(key), tweetid:tweet_text List
+
+plan c:
+hbase: (userid(index), time(index)) two key,  number of tweets, retweet list, tweetid:tweet_text List
+
+so the csv we need:
+1. (userid(index), time(index)) two key,  number of tweets, retweet list, tweetid:tweet_text List
+
+split to time(key), tweetid:tweet_text List   and userid(key), number of tweets, retweet list 
+
+than split to all in plan a
