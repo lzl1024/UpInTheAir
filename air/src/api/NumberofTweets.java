@@ -22,11 +22,9 @@ public class NumberofTweets {
         StringBuilder builder = new StringBuilder(Constants.ANS_TITLE);
 
         // send query to database
-        for (int i = 0; i < 10000; i++) {
         builder.append(userid_min);
         builder.append("\n");
         builder.append(userid_max);
-        }
 
         return builder.toString();
     }

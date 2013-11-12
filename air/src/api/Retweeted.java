@@ -8,25 +8,20 @@ import javax.ws.rs.core.MediaType;
 
 import util.Constants;
 
-@Path("q3")
-public class NumberofTweets {
+@Path("q4")
+public class Retweeted {
     /**
-     * Number of Tweets request
+     * Who retweeted a tweet request
      * 
      * @return
      */
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String tweets(@QueryParam("userid_min") String userid_min,
-            @QueryParam("userid_max") String userid_max) {
+    public String tweets(@QueryParam("userid") String userid) {
         StringBuilder builder = new StringBuilder(Constants.ANS_TITLE);
 
         // send query to database
-        for (int i = 0; i < 10000; i++) {
-        builder.append(userid_min);
-        builder.append("\n");
-        builder.append(userid_max);
-        }
+        builder.append(userid);
 
         return builder.toString();
     }
