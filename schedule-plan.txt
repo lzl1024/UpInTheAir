@@ -28,3 +28,19 @@ than 1.5GB.
 Issue: convert s3 file into table costs a lot of memory (seems impossible in one regular machine) and time (2.5 days
 in my laptop). 
 How to fix: 1. launch aws instances; 2. pass tag check?
+
+
+11.12 meeting:
+
+csv we need
+ userid, time, tweetid:tweet, retweet target   (14 files)
+ 
+QIAN: 
+	userid, time, tweetid:tweet   (read and write line by line, no space need)  --> to hbase
+
+YINSU:
+	userid, number of tweets, retweet list (to 14 files and sorted by userid. take care of virtual space)
+	
+external merge and get:
+	userid, number of tweets
+	userid, retweet list   ---> introduce to mysql
