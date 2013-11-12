@@ -1,5 +1,5 @@
-1. 11.19 due, connect sample db with frontend done
-2. 11.23 due, asg done
+1. 11.19 due, connect sample db with frontend done (ami done if neccessary)
+2. 11.23 due, ami and asg done
 3. 11.26 due, whole done. (test)
 
 plan a: 
