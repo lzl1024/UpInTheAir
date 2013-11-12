@@ -20,3 +20,11 @@ so the csv we need:
 split to time(key), tweetid:tweet_text List   and userid(key), number of tweets, retweet list 
 
 than split to all in plan a
+
+@Channing at Nov 12, 2013
+Progress: converting s3 file into csv file for memory table. It's believable that the memory table can be less than 800MB,
+and the combination of memroy table and sql table (schema: <userId, number of tweets, list of retweet userIds>) can be less
+than 1.5GB.
+Issue: convert s3 file into table costs a lot of memory (seems impossible in one regular machine) and time (2.5 days
+in my laptop). 
+How to fix: 1. launch aws instances; 2. pass tag check?
