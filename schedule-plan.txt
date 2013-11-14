@@ -41,6 +41,14 @@ QIAN:
 YINSU:
 	userid, number of tweets, retweet list (to 14 files and sorted by userid. take care of virtual space)
 	
-external merge and get:
+	
+11.14 meeting:
+
+QIAN:
+	find user max, user min, load data into HBASE
+YINSU:
+	external merge and get:
 	userid, number of tweets
 	userid, retweet list   ---> introduce to mysql
+ZHUOLIN:
+	get userid, number of tweets  csv, try to load file when service start (tomcat)
