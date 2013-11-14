@@ -1,0 +1,57 @@
+ /**
+     * Merge the records in files and perform reduce function
+     * 
+     * @param mergeOutFile
+     * @return
+     * @throws Exception
+     */
+    private String mergeAndPerform(ArrayList<String> mergeOutFile)
+            throws Exception {
+        String fileName = Constants.FS_LOCATION + this.jobID.toString() + "##_"
+                + this.index;
+        Context context = new Context(1, fileName);
+        PriorityQueue<KVPair> records = new PriorityQueue<KVPair>();
+
+        // open list of files
+        BufferedReader[] readerList = new BufferedReader[mergeOutFile.size()];
+        for (int i = 0; i < mergeOutFile.size(); i++) {
+            readerList[i] = new BufferedReader(new FileReader(fileNames.get(i)));
+            String line;
+            if ((line = readerList[i].readLine()) != null) {
+                records.add(readReord(line, i));
+            }
+        }
+
+        // external sort
+        ArrayList<Writable<?>> sameRecord = new ArrayList<Writable<?>>();
+        KVPair last = null;
+
+        while (records.size() > 0) {
+            KVPair tmp = records.poll();
+
+            if (last != null && last.key.hashCode() != tmp.key.hashCode()) {
+                perform(last.key, sameRecord, context);
+                sameRecord = new ArrayList<Writable<?>>();
+            }
+
+            sameRecord.add(tmp.value);
+            String line;
+            if ((line = readerList[tmp.index].readLine()) != null) {
+                records.add(readReord(line, tmp.index));
+            }
+            last = tmp;
+        }
+        // last part of external sort
+        if (sameRecord.size() != 0) {
+            perform(last.key, sameRecord, context);
+        }
+
+        if (!context.isClose()) {
+            context.close();
+        }
+        for (BufferedReader reader : readerList) {
+            reader.close();
+        }
+
+        return fileName;
+    }

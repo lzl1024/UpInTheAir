@@ -44,11 +44,29 @@ YINSU:
 	
 11.14 meeting:
 
-QIAN:
-	find user max, user min, load data into HBASE
+##QIAN:
+##	find user max, user min, load data into HBASE
+
 YINSU:
-	external merge and get:
-	userid, number of tweets
-	userid, retweet list   ---> introduce to mysql
+	record: long userid, string time, long tweetid, string tweet, long retweet target 
+	two comparator (userid, retweet target)
+
+	sort by userid
+	internal merge file by userid, external merge file, wape out same tweetid
+	method: 
+		internal merge : collection sort, 
+		external merge: priority queue with file descripter : reference ReducerPerform.txt
+	
+	make a function: out file 1 : userid, number of tweets --- output to a file  -- hand to ZHUOLIN
+	out file 2 : userid, time, tweetid:tweet, retweet target   (19 files) -- hand to QIAN
+
+	use file 2 to sort by retweet target
+	internal merge and external (19 files)
+	make a function : out file 3 : userid, retweet list --- output to one file
+QIAN:
+	rerun 0,13,14:
+	time, tweetid:tweet	 --> unique tweetid
+	userid, retweet list -----> introduce to mysql
 ZHUOLIN:
+	write program for YINSU
 	get userid, number of tweets  csv, try to load file when service start (tomcat)
