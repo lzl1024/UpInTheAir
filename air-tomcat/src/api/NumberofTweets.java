@@ -6,9 +6,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import com.sun.jersey.spi.resource.Singleton;
+
 import util.Constants;
 
 @Path("q3")
+@Singleton
 public class NumberofTweets {
     /**
      * Number of Tweets request
