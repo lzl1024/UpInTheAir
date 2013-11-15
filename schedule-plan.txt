@@ -70,3 +70,16 @@ QIAN:
 ZHUOLIN:
 	write program for YINSU
 	get userid, number of tweets  csv, try to load file when service start (tomcat)
+	
+11.15:
+	Assign to Yinsu Chu:
+	
+	Intruction of MySQL Import & Export:
+	1. Create a table:
+		mysql> create table test( userId bigint, time varchar(100), tweet blob, retweet_userId bigint, primary key (userId, time) );                                          
+	2. Import 19 result_split_fileList_X.csv into the table:
+		mysql> load data infile '/Users/maoqian/cloudProject/split_file_list/result_split_fileList_X.csv' replace into table test FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' ESCAPED BY '"'
+	3. Export to csv file using certain fields (please change field based on need):
+		mysql> select time, tweet from test into outfile '/Users/maoqian/cloudProject/text_exported_table3.csv' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' ESCAPED BY '"';
+	4. Finally, create a new table based on need. Import the csv file exported in Step 3.
+	
