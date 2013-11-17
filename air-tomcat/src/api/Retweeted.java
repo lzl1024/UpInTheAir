@@ -17,11 +17,13 @@ public class Retweeted {
      */
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String tweets(@QueryParam("userid") String userid) {
+    public String tweets(@QueryParam("userid") Long userid) {
         StringBuilder builder = new StringBuilder(Constants.ANS_TITLE);
 
-        // send query to database
-        builder.append(userid);
+        // send query to database       
+        if (NumberofTweets.index.containsKey(userid)) {
+            builder.append(NumberofTweets.table.get(NumberofTweets.index.get(userid)).retweetList);
+        }
 
         return builder.toString();
     }

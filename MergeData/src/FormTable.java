@@ -3,12 +3,12 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 
 /**
  * 
- * Get the table from origin csv file
+ * Get the table from origin csv file, the outfile is sort by userid
  * 
  */
 public class FormTable {
@@ -27,7 +27,7 @@ public class FormTable {
         String inputfile = "text_exported_0_2.csv";
         String outputfile = "output.csv";
 
-        HashMap<Long, Table> userTable = new HashMap<Long, Table>();
+        TreeMap<Long, Table> userTable = new TreeMap<Long, Table>();
 
         BufferedReader reader = new BufferedReader(new FileReader(inputfile));
         String line;

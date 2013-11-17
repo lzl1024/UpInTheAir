@@ -13,4 +13,6 @@ public class Constants {
     public static final URI BASE_URI = UriBuilder.fromUri("http://localhost/")
             .port(port).build();
     public static String ANS_TITLE = "Up In The Air, 3929-1038-4476\n";
+    // file location
+    public static String FILE_LOC = "/C:/Users/Lenovo/Desktop/UpInTheAir/air-tomcat/output.csv";
 }
