@@ -26,14 +26,16 @@ public class NumberofTweets {
             BufferedReader reader = new BufferedReader(new FileReader(
                     Constants.FILE_LOC));
             System.out.println("Begin to Read");
-            
+            long total = 0;
+
             String line;
 
             while ((line = reader.readLine()) != null) {
                 String[] element = line.split(",");
                 Long userId = Long.parseLong(element[0]);
-                Long tweets = Long.parseLong(element[1]);
-                Table row = new Table(userId, tweets, null);
+                total += Long.parseLong(element[1]);
+
+                Table row = new Table(total, null);
 
                 // get retweet list
                 if (element.length > 2) {
@@ -67,21 +69,23 @@ public class NumberofTweets {
             @QueryParam("userid_max") Long userid_max) {
         StringBuilder builder = new StringBuilder(Constants.ANS_TITLE);
         long total = 0L;
-        int currentIndex;
+        userid_min--;
 
         // send query to cache
-        while (userid_min <= userid_max && !index.containsKey(userid_min)) {
-            userid_min++;
+        while (userid_min > 0 && !index.containsKey(userid_min)) {
+            userid_min--;
         }
-        if (userid_min <= userid_max) {
-            currentIndex = index.get(userid_min);
-            Table currentTable;
 
-            // update total number of tweets
-            while (currentIndex < table.size()
-                    && (currentTable = table.get(currentIndex)).userId <= userid_max) {
-                total += currentTable.tweets;
-                currentIndex++;
+        while (userid_max > 0 && userid_min < userid_max && !index.containsKey(userid_max)) {
+            userid_max--;
+        }
+
+        if (userid_min < userid_max && userid_max > 0) {
+            if (userid_min <= 0) {
+                total = table.get(index.get(userid_max)).tweets;
+            }else {
+                total = table.get(index.get(userid_max)).tweets
+                        - table.get(index.get(userid_min)).tweets;
             }
         }
 
