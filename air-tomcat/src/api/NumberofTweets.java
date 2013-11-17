@@ -19,6 +19,8 @@ public class NumberofTweets {
     public static HashMap<Long, Integer> index = new HashMap<Long, Integer>();
     // table to store the records
     public static ArrayList<Table> table = new ArrayList<Table>();
+    // max userid
+    public static Long UserMax = 0L;
 
     // read file
     static {
@@ -35,6 +37,10 @@ public class NumberofTweets {
                 Long userId = Long.parseLong(element[0]);
                 total += Long.parseLong(element[1]);
 
+                if (userId > UserMax) {
+                    UserMax = userId;
+                }
+                
                 Table row = new Table(total, null);
 
                 // get retweet list
@@ -68,28 +74,33 @@ public class NumberofTweets {
     public String tweets(@QueryParam("userid_min") Long userid_min,
             @QueryParam("userid_max") Long userid_max) {
         StringBuilder builder = new StringBuilder(Constants.ANS_TITLE);
-        long total = 0L;
-        userid_min--;
 
-        // send query to cache
-        while (userid_min > 0 && !index.containsKey(userid_min)) {
+        if (userid_min != null && userid_max != null) {
+            long total = 0L;
             userid_min--;
-        }
-
-        while (userid_max > 0 && userid_min < userid_max && !index.containsKey(userid_max)) {
-            userid_max--;
-        }
-
-        if (userid_min < userid_max && userid_max > 0) {
-            if (userid_min <= 0) {
-                total = table.get(index.get(userid_max)).tweets;
-            }else {
-                total = table.get(index.get(userid_max)).tweets
-                        - table.get(index.get(userid_min)).tweets;
+            if (userid_max > UserMax) {
+                userid_max = UserMax;
             }
+    
+            // send query to cache
+            while (userid_min > 0 && !index.containsKey(userid_min)) {
+                userid_min--;
+            }
+    
+            while (userid_max > 0 && userid_min < userid_max && !index.containsKey(userid_max)) {
+                userid_max--;
+            }
+    
+            if (userid_min < userid_max && userid_max > 0) {
+                if (userid_min <= 0) {
+                    total = table.get(index.get(userid_max)).tweets;
+                }else {
+                    total = table.get(index.get(userid_max)).tweets
+                            - table.get(index.get(userid_min)).tweets;
+                }
+            }
+            builder.append(total);
         }
-
-        builder.append(total);
         return builder.toString();
     }
 }

@@ -21,7 +21,7 @@ public class Retweeted {
         StringBuilder builder = new StringBuilder(Constants.ANS_TITLE);
 
         // send query to database       
-        if (NumberofTweets.index.containsKey(userid)) {
+        if (userid != null && NumberofTweets.index.containsKey(userid)) {
             String ans = NumberofTweets.table.get(NumberofTweets.index.get(userid)).retweetList;
             if (ans != null) {
                 builder.append(ans);
