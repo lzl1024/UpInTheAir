@@ -7,10 +7,10 @@ package api;
  */
 public class Table {
     public long tweets;
-    public String retweetList;
+    public byte[] retweetList;
     public short Idoffset;
 
-    public Table(long tweets, String retweetList, short Idoffset) {
+    public Table(long tweets, byte[] retweetList, short Idoffset) {
         super();
         this.tweets = tweets;
         this.retweetList = retweetList;

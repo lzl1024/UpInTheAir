@@ -1,5 +1,7 @@
 package api;
 
+import java.io.UnsupportedEncodingException;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -23,7 +25,13 @@ public class Retweeted {
 
         // send query to database
         if (userid != null && (real = findKey(userid)) != -1) {
-            String ans = NumberofTweets.table[real].retweetList;
+            String ans = null;
+            try {
+                ans = new String(NumberofTweets.table[real].retweetList, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
             if (ans != null) {
                 builder.append(ans);
             }

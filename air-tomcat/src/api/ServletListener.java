@@ -41,7 +41,11 @@ public class ServletListener implements ServletContextListener {
                         builder.append(element[i] + "\n");
                     }
 
-                    row.retweetList = builder.toString();
+                    row.retweetList = builder.toString().getBytes();
+                }
+
+                if (k % 100000 == 0) {
+                    System.out.println(k / 100000);
                 }
 
                 if (userId / Constants.divisor != indexPointer) {
