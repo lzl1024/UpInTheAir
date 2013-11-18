@@ -8,14 +8,14 @@ import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.TreeMap;
 
 import api.Table;
 
 public class Streamming {
     public static void main(String[] args) {
         // index map, key : userid, value : record index
-        HashMap<Long, Integer> index = new HashMap<Long, Integer>();
+        TreeMap<Long, Integer> index = new TreeMap<Long, Integer>();
         // table to store the records
         ArrayList<Table> table = new ArrayList<Table>();
         // max userid
@@ -31,6 +31,8 @@ public class Streamming {
                     "output_total.csv"));
             System.out.println("Begin to Read");
             long total = 0;
+            
+            int k = 0;
 
             String line;
 
@@ -55,6 +57,10 @@ public class Streamming {
                     row.retweetList = builder.toString();
                 }
 
+                if (++k == 100000) {
+                    System.out.println("ooo");
+                    k = 0;
+                }
                 table.add(row);
                 index.put(userId, table.size() - 1);
             }
