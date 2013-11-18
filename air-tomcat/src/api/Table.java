@@ -1,5 +1,7 @@
 package api;
 
+import java.util.Arrays;
+
 /**
  * 
  * Table to store the data
@@ -15,6 +17,12 @@ public class Table {
         this.tweets = tweets;
         this.retweetList = retweetList;
         this.Idoffset = Idoffset;
+    }
+
+    @Override
+    public String toString() {
+        return "Table [tweets=" + tweets + ", retweetList="
+                + Arrays.toString(retweetList) + ", Idoffset=" + Idoffset + "]";
     }
 
 }

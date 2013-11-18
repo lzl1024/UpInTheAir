@@ -27,7 +27,9 @@ public class Retweeted {
         if (userid != null && (real = findKey(userid)) != -1) {
             String ans = null;
             try {
-                ans = new String(NumberofTweets.table[real].retweetList, "UTF-8");
+                if (NumberofTweets.table[real].retweetList != null) {
+                    ans = new String(NumberofTweets.table[real].retweetList, "UTF-8");
+                }
             } catch (UnsupportedEncodingException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -43,6 +45,8 @@ public class Retweeted {
     private int findKey(Long userid) {
         if (userid == NumberofTweets.UserMax) {
             return NumberofTweets.index.length - 1;
+        } else if (userid > Constants.MARK) {
+            return -1;
         }
 
         if (userid / Constants.divisor >= NumberofTweets.index.length) {

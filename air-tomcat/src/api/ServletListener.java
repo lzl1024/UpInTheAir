@@ -71,6 +71,7 @@ public class ServletListener implements ServletContextListener {
             e.printStackTrace();
         }
         System.out.println("end!");
+
     }
 
     public void contextDestroyed(ServletContextEvent arg0) {

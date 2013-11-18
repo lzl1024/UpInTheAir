@@ -14,6 +14,7 @@ public class Constants {
             .port(port).build();
     public static String ANS_TITLE = "Up_in_the_Air,3929-1038-4476\n";
     public static int SIZE = 18186000;
+    public static long MARK = 2148717489L;
     public static long INDEX_SIZE = 2148719;
     public static int divisor = 1000;
     // file location

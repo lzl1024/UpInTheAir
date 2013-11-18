@@ -39,8 +39,14 @@ public class NumberofTweets {
             }
 
             userid_min--;
-            if (userid_max > UserMax) {
+            if (userid_max >= UserMax) {
                 userid_max = UserMax;
+            } else if (userid_max > Constants.MARK) {
+                userid_max = Constants.MARK;
+            }
+            
+            if (userid_min > Constants.MARK) {
+                userid_min = Constants.MARK;
             }
 
             int maxIndex = findLast(userid_max);
@@ -63,8 +69,8 @@ public class NumberofTweets {
             return -1;
         }
         // userMax
-        if (userId / Constants.divisor >= index.length) {
-            return index.length - 1;
+        if (userId / Constants.divisor >= index.length) {        
+            return index[index.length - 1] - 1;
         }
         int basic = (int) (userId / Constants.divisor);
         short offset = (short) (userId % Constants.divisor);
