@@ -1,10 +1,7 @@
 package api;
 
-import java.io.FileInputStream;
-import java.io.ObjectInputStream;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.TreeMap;
+import java.io.BufferedReader;
+import java.io.FileReader;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -13,35 +10,63 @@ import util.Constants;
 
 public class ServletListener implements ServletContextListener {
 
-    @SuppressWarnings("unchecked")
     public void contextInitialized(ServletContextEvent arg0) {
-        // read steaming file
-        NumberofTweets.index = (TreeMap<Long, Integer>) DeserializeData(Constants.indexFN);
-        NumberofTweets.table = (ArrayList<Table>) DeserializeData(Constants.tableFN);
-        NumberofTweets.UserMax = (Long) DeserializeData(Constants.tableFN);    
-    }
-
-    // read serializable data from file
-    public static Serializable DeserializeData(String filename) {
-        ObjectInputStream in;
-        
-      System.out.println("Begin: "+ filename);
-        Serializable obj = null;
+        // read file
         try {
-            FileInputStream fileInput = new FileInputStream(filename);
-            in = new ObjectInputStream(fileInput);
-            obj = (Serializable) in.readObject();
-            in.close();
-            fileInput.close();
+            BufferedReader reader = new BufferedReader(new FileReader(
+                    Constants.FILE_LOC));
+            System.out.println("Begin to Read");
+            long total = 0;
 
+            int k = 0;
+            int indexPointer = 0;
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] element = line.split(",");
+                long userId = Long.parseLong(element[0]);
+                total += Long.parseLong(element[1]);
+
+                if (userId > NumberofTweets.UserMax) {
+                    NumberofTweets.UserMax = userId;
+                }
+
+                Table row = new Table(total, null,
+                        (short) (userId % Constants.divisor));
+
+                // get retweet list
+                if (element.length > 2) {
+                    StringBuilder builder = new StringBuilder();
+                    for (int i = 2; i < element.length; i++) {
+                        builder.append(element[i] + "\n");
+                    }
+
+                    row.retweetList = builder.toString();
+                }
+
+                if (userId / Constants.divisor != indexPointer) {
+                    int now;
+                    if (userId / Constants.divisor > Constants.INDEX_SIZE) {
+                        now = NumberofTweets.index.length - 1;
+                        NumberofTweets.index[now] = k+1;
+                    } else {
+                        now = (int) (userId / Constants.divisor);
+                    }
+                           
+                    for(int i = indexPointer; i < now; i++){
+                        NumberofTweets.index[i] = k;
+                    }
+                    indexPointer = now;
+                }
+
+                NumberofTweets.table[k] = row;
+                k++;
+            }
+            reader.close();
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
-        
-        System.out.println("End: "+ filename);
-        return obj;
+        System.out.println("end!");
     }
 
     public void contextDestroyed(ServletContextEvent arg0) {

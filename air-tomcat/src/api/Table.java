@@ -6,13 +6,15 @@ package api;
  *
  */
 public class Table {
-    public Long tweets;
+    public long tweets;
     public String retweetList;
+    public short Idoffset;
 
-    public Table(Long tweets, String retweetList) {
+    public Table(long tweets, String retweetList, short Idoffset) {
         super();
         this.tweets = tweets;
         this.retweetList = retweetList;
+        this.Idoffset = Idoffset;
     }
 
 }
