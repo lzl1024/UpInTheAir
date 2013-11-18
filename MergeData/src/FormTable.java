@@ -24,8 +24,8 @@ public class FormTable {
     }
 
     public static void main(String[] args) throws Exception {
-        String inputfile = "text_exported_0_2.csv";
-        String outputfile = "output.csv";
+        String inputfile = "userId_retweeted_total.csv";
+        String outputfile = "output_total.csv";
 
         TreeMap<Long, Table> userTable = new TreeMap<Long, Table>();
 

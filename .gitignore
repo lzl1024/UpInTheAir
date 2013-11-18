@@ -6,5 +6,6 @@ bin/
 build/
 .metadata
 *.csv
+*.stream
 
 *.war

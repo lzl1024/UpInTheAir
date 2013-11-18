@@ -1,7 +1,7 @@
 package api;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.TreeMap;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -14,7 +14,7 @@ import util.Constants;
 @Path("q3")
 public class NumberofTweets {
     // index map, key : userid, value : record index
-    public static HashMap<Long, Integer> index = new HashMap<Long, Integer>();
+    public static TreeMap<Long, Integer> index = new TreeMap<Long, Integer>();
     // table to store the records
     public static ArrayList<Table> table = new ArrayList<Table>();
     // max userid

@@ -14,5 +14,9 @@ public class Constants {
             .port(port).build();
     public static String ANS_TITLE = "Up_in_the_Air,3929-1038-4476\n";
     // file location
-    public static String FILE_LOC = "/C:/Users/Lenovo/Desktop/UpInTheAir/air-tomcat/output.csv";
+    public static String FILE_PREFIX = "/C:/Users/Lenovo/Desktop/UpInTheAir/air-tomcat/";
+    public static String indexFN = FILE_PREFIX + "index.stream";
+    public static String tableFN = FILE_PREFIX + "table.stream";
+    public static String userFN = FILE_PREFIX + "user.stream";
+
 }
