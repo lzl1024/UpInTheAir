@@ -1,7 +1,5 @@
 package api;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -22,48 +20,6 @@ public class NumberofTweets {
     // max userid
     public static Long UserMax = 0L;
 
-    // read file
-    static {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(
-                    Constants.FILE_LOC));
-            System.out.println("Begin to Read");
-            long total = 0;
-
-            String line;
-
-            while ((line = reader.readLine()) != null) {
-                String[] element = line.split(",");
-                Long userId = Long.parseLong(element[0]);
-                total += Long.parseLong(element[1]);
-
-                if (userId > UserMax) {
-                    UserMax = userId;
-                }
-                
-                Table row = new Table(total, null);
-
-                // get retweet list
-                if (element.length > 2) {
-                    StringBuilder builder = new StringBuilder();
-                    for (int i = 2; i < element.length; i++) {
-                        builder.append(element[i] + "\n");
-                    }
-
-                    row.retweetList = builder.toString();
-                }
-
-                table.add(row);
-                index.put(userId, table.size() - 1);
-            }
-
-            reader.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        System.out.println("end!");
-    }
-
     /**
      * Number of Tweets request
      * 
@@ -77,10 +33,16 @@ public class NumberofTweets {
 
         if (userid_min != null && userid_max != null) {
             long total = 0L;
+            if (userid_min > UserMax) {
+                builder.append(total);
+                return builder.toString();
+            }
+            
             userid_min--;
             if (userid_max > UserMax) {
                 userid_max = UserMax;
             }
+            
     
             // send query to cache
             while (userid_min > 0 && !index.containsKey(userid_min)) {
