@@ -10,19 +10,19 @@ import util.Constants;
 
 @Path("q2")
 public class TextofTweets {
-    /**
-     * TextofTweets request
-     * 
-     * @return
-     */
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String tweets(@QueryParam("time") String time) {
-        StringBuilder builder = new StringBuilder(Constants.ANS_TITLE);
+	/**
+	 * TextofTweets request
+	 * 
+	 * @return
+	 */
+	@GET
+	@Produces(MediaType.TEXT_PLAIN)
+	public String tweets(@QueryParam("time") String time) {
+		StringBuilder builder = new StringBuilder(Constants.ANS_TITLE);
 
-        // send query to database
-        builder.append(time);
+		// send query to database
+		builder.append(time);
 
-        return builder.toString();
-    }
+		return builder.toString();
+	}
 }
