@@ -95,8 +95,14 @@ public class LoadHBase {
 					date).toString();
 
 			/* get tweet text */
-			String tweetText = jElement.getAsJsonObject().get("text")
-					.getAsString();
+			// String tweetText = jElement.getAsJsonObject().get("text")
+			// .getAsString();
+			final String textField = "\",\"text\":\"";
+			final String sourceField = "\",\"source\":\"";
+			int indexText = json.indexOf(textField);
+			int indexSource = json.indexOf(sourceField);
+			String tweetText = json.substring(indexText + textField.length(),
+					indexSource);
 
 			outputTime.set(q2Time);
 			tweet.set(tweetId + ":" + tweetText);
