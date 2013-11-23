@@ -36,7 +36,7 @@ public class Retweeted {
 				e.printStackTrace();
 			}
 			if (ans != null) {
-				builder.append(ans).append("\n");
+				builder.append(ans);
 			}
 		}
 
