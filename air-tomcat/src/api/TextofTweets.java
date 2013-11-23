@@ -81,7 +81,9 @@ public class TextofTweets {
 			return null;
 		}
 
-		builder.append(new String(result.getValue(COLUMN_FAMILY, COLUMN)));
+		if (!result.isEmpty()) {
+			builder.append(new String(result.getValue(COLUMN_FAMILY, COLUMN)));
+		}
 
 		try {
 			tweetTable.close();
