@@ -56,14 +56,12 @@ for split_file in split_fileList:
 
             tweetId = int(decoded_data['id'])
             userId = int(decoded_data['user']['id'])
-            time = str(decoded_data['created_at'])
-            text = (decoded_data['text']).encode('utf-8')
             originalUserId = -1
 
             if 'retweeted_status' in decoded_data:
                 originalUserId = int(decoded_data['retweeted_status']['user']['id'])
 
-            outputWriter.writerow([userId, time, (str(tweetId) + ":" + text), originalUserId])
+            outputWriter.writerow([tweetId, userId, originalUserId])
 
         tweet_file.close()
         # open a file to write the result
