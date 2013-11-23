@@ -160,9 +160,8 @@ public class LoadHBase {
 
 			/* generate output to HBase */
 			StringBuffer outputTweet = new StringBuffer();
-			outputTweet.append(tweets.get(0));
-			for (int i = 1; i < tweets.size(); i++) {
-				outputTweet.append("\n" + tweets.get(i));
+			for (int i = 0; i < tweets.size(); i++) {
+				outputTweet.append(tweets.get(i) + "\n");
 			}
 
 			/* write to HBase table */

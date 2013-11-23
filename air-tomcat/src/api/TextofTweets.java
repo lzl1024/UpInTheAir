@@ -32,12 +32,12 @@ public class TextofTweets {
 		config.clear();
 
 		/* master IP address */
-		config.set("hbase.zookeeper.quorum", "54.205.169.96");
+		config.set("hbase.zookeeper.quorum", "54.205.124.206");
 		config.set("hbase.zookeeper.property.clientPort", "2181");
 
 		/* master DNS name */
 		config.set("hbase.master",
-				"ec2-54-205-169-96.compute-1.amazonaws.com:60000");
+				"ec2-54-205-124-206.compute-1.amazonaws.com:60000");
 	}
 
 	/**

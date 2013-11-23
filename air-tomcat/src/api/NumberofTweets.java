@@ -59,7 +59,7 @@ public class NumberofTweets {
 					total = table[maxIndex].tweets - table[minIndex].tweets;
 				}
 			}
-			builder.append(total);
+			builder.append(total).append("\n");
 		}
 		return builder.toString();
 	}
