@@ -18,6 +18,5 @@ public class Constants {
 	public static long INDEX_SIZE = 2148719;
 	public static int divisor = 1000;
 	// file location
-	public static String FILE_LOC = "/Users/yinsuchu/Downloads/output_total.csv";
-
+	public static String FILE_LOC = "/usr/UpInTheAir/output.csv";
 }
