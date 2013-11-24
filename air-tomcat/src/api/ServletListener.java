@@ -2,6 +2,9 @@ package api;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -10,71 +13,94 @@ import util.Constants;
 
 public class ServletListener implements ServletContextListener {
 
-	public void contextInitialized(ServletContextEvent arg0) {
-		// read file
-		try {
-			BufferedReader reader = new BufferedReader(new FileReader(
-					Constants.FILE_LOC));
-			System.out.println("Begin to Read");
-			long total = 0;
+    public void contextInitialized(ServletContextEvent arg0) {
+        // load jdbc
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
-			int k = 0;
-			int indexPointer = 0;
+        String url = "jdbc:mysql://localhost:3306/"+Constants.DBName;
+        String username = "&";
+        String password = "";
+        try {
+            Connection conn = DriverManager.getConnection(url, username,
+                    password);
 
-			String line;
-			while ((line = reader.readLine()) != null) {
-				String[] element = line.split(",");
-				long userId = Long.parseLong(element[0]);
-				total += Long.parseLong(element[1]);
+            try {
+                Constants.st = conn.createStatement();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } catch (SQLException se) {
+            se.printStackTrace();
+        }
 
-				if (userId > NumberofTweets.UserMax) {
-					NumberofTweets.UserMax = userId;
-				}
+        // read file
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(
+                    Constants.FILE_LOC));
+            System.out.println("Begin to Read");
+            long total = 0;
 
-				Table row = new Table(total, null,
-						(short) (userId % Constants.divisor));
+            int k = 0;
+            int indexPointer = 0;
 
-				// get retweet list
-				if (element.length > 2) {
-					StringBuilder builder = new StringBuilder();
-					for (int i = 2; i < element.length; i++) {
-						builder.append(element[i] + "\n");
-					}
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] element = line.split(",");
+                long userId = Long.parseLong(element[0]);
+                total += Long.parseLong(element[1]);
 
-					row.retweetList = builder.toString().getBytes();
-				}
+                if (userId > NumberofTweets.UserMax) {
+                    NumberofTweets.UserMax = userId;
+                }
 
-				if (k % 100000 == 0) {
-					System.out.println(k / 100000);
-				}
+                Table row = new Table(total, null,
+                        (short) (userId % Constants.divisor));
 
-				if (userId / Constants.divisor != indexPointer) {
-					int now;
-					if (userId / Constants.divisor > Constants.INDEX_SIZE) {
-						now = NumberofTweets.index.length - 1;
-						NumberofTweets.index[now] = k + 1;
-					} else {
-						now = (int) (userId / Constants.divisor);
-					}
+                // get retweet list
+                if (element.length > 2) {
+                    StringBuilder builder = new StringBuilder();
+                    for (int i = 2; i < element.length; i++) {
+                        builder.append(element[i] + "\n");
+                    }
 
-					for (int i = indexPointer; i < now; i++) {
-						NumberofTweets.index[i] = k;
-					}
-					indexPointer = now;
-				}
+                    row.retweetList = builder.toString().getBytes();
+                }
 
-				NumberofTweets.table[k] = row;
-				k++;
-			}
-			reader.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		System.out.println("end!");
+                if (k % 100000 == 0) {
+                    System.out.println(k / 100000);
+                }
 
-	}
+                if (userId / Constants.divisor != indexPointer) {
+                    int now;
+                    if (userId / Constants.divisor > Constants.INDEX_SIZE) {
+                        now = NumberofTweets.index.length - 1;
+                        NumberofTweets.index[now] = k + 1;
+                    } else {
+                        now = (int) (userId / Constants.divisor);
+                    }
 
-	public void contextDestroyed(ServletContextEvent arg0) {
-	}
+                    for (int i = indexPointer; i < now; i++) {
+                        NumberofTweets.index[i] = k;
+                    }
+                    indexPointer = now;
+                }
+
+                NumberofTweets.table[k] = row;
+                k++;
+            }
+            reader.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("end!");
+
+    }
+
+    public void contextDestroyed(ServletContextEvent arg0) {
+    }
 
 }

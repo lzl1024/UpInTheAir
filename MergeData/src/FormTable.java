@@ -2,9 +2,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.Map.Entry;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 /**
  * 
@@ -14,18 +14,18 @@ import java.util.TreeMap;
 public class FormTable {
     public static class Table {
         public long numOfTweet;
-        public ArrayList<Long> retweetList;
+        public TreeSet<Long> retweetList;
 
         public Table() {
             super();
             this.numOfTweet = 0;
-            this.retweetList = new ArrayList<Long>();
+            this.retweetList = new TreeSet<Long>();
         }
     }
 
     public static void main(String[] args) throws Exception {
-        String inputfile = "userId_retweeted_total.csv";
-        String outputfile = "output_total.csv";
+        String inputfile = "new_table_1.csv";
+        String outputfile = "output_total_new.csv";
 
         TreeMap<Long, Table> userTable = new TreeMap<Long, Table>();
 

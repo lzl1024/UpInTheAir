@@ -18,7 +18,7 @@ import csv
 import urllib
 
 # get system parameters
-split_fileList = sys.argv[1:]
+split_fileList = ["split_fileList_0.csv","split_fileList_2.csv","split_fileList_4.csv"]
 
 
 for split_file in split_fileList:
