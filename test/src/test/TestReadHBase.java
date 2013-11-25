@@ -1,4 +1,5 @@
 package test;
+
 import java.util.Arrays;
 
 import org.apache.hadoop.conf.Configuration;
