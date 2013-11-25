@@ -1,5 +1,6 @@
 package util;
 
+import java.sql.Connection;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -17,9 +18,9 @@ public class Constants {
 	public static String FILE_LOC = "/usr/UpInTheAir/output.csv";
 	
 	// jdbc
-	public static Statement st;
-	public static String queryPrefix = "SELECT password FROM user WHERE userName=\"";
-	public static String DBName = "test";
-	public static String cellName = "password";
+	public static Connection conn;
+	public static String queryPrefix = "SELECT tweet FROM time_tweet WHERE time=\"";
+	public static String DBName = "cloud_project";
+	public static String cellName = "tweet";
 	
 }

@@ -21,18 +21,12 @@ public class ServletListener implements ServletContextListener {
             e.printStackTrace();
         }
 
-        String url = "jdbc:mysql://localhost:3306/"+Constants.DBName;
-        String username = "&";
-        String password = "";
+        String url = "jdbc:mysql://127.0.0.1:3306/"+Constants.DBName;
+        String username = "root";
+        String password = "password";
         try {
-            Connection conn = DriverManager.getConnection(url, username,
+            Constants.conn = DriverManager.getConnection(url, username,
                     password);
-
-            try {
-                Constants.st = conn.createStatement();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
         } catch (SQLException se) {
             se.printStackTrace();
         }

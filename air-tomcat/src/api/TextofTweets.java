@@ -1,13 +1,16 @@
 package api;
 
+import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+
 
 import util.Constants;
 
@@ -24,14 +27,20 @@ public class TextofTweets {
 	public String tweets(@QueryParam("time") String time) {
 
 		StringBuilder builder = new StringBuilder(Constants.ANS_TITLE);
-		
+		//byte[] result = null;
 		ResultSet rs;
         try {
-            rs = Constants.st.executeQuery(Constants.queryPrefix + time + "\"");
+            Statement st = Constants.conn.createStatement();
+
+            rs = st.executeQuery(Constants.queryPrefix + time + "\"");
             while (rs.next())
             {
-              builder.append(rs.getString(Constants.cellName));
+                //Blob b = rs.getString(1);
+                //result = b.getBytes(1, (int) b.length());
+                builder.append(rs.getString(1));
             }
+            //rs.close();
+            //st.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
