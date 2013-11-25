@@ -1,6 +1,7 @@
 package util;
 
 import java.net.URI;
+import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -12,5 +13,18 @@ public class Constants {
     public static int port = 8080;
     public static final URI BASE_URI = UriBuilder.fromUri("http://localhost/")
             .port(port).build();
-    public static String ANS_TITLE = "Up In The Air, 3929-1038-4476\n";
+    public static String ANS_TITLE = "Up_in_the_Air,3929-1038-4476\n";
+    public static int SIZE = 18186000;
+    public static long MARK = 2148717489L;
+    public static long INDEX_SIZE = 2148719;
+    public static int divisor = 1000;
+    // file location
+    public static String FILE_LOC = "/C:/Users/Lenovo/Desktop/UpInTheAir/air-tomcat/output_total.csv";
+    
+    // jdbc
+    public static Statement st;
+    public static String queryPrefix = "SELECT password FROM user WHERE userName=\"";
+    public static String DBName = "test";
+    public static String cellName = "password";
+    
 }

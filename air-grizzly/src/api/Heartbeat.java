@@ -11,14 +11,14 @@ import util.Constants;
 
 @Path("q1")
 public class Heartbeat {
-    /**
-     * Heartbeat request
-     * 
-     * @return
-     */
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String heartBeat() {
-        return Constants.ANS_TITLE + Constants.FORMAT.format(new Date());
-    }
+	/**
+	 * Heartbeat request
+	 * 
+	 * @return
+	 */
+	@GET
+	@Produces(MediaType.TEXT_PLAIN)
+	public String heartBeat() {
+		return Constants.ANS_TITLE + Constants.FORMAT.format(new Date());
+	}
 }

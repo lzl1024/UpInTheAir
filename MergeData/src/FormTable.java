@@ -24,7 +24,7 @@ public class FormTable {
     }
 
     public static void main(String[] args) throws Exception {
-        String inputfile = "new_table_1.csv";
+        String inputfile = "new_table.csv";
         String outputfile = "output_total_new.csv";
 
         TreeMap<Long, Table> userTable = new TreeMap<Long, Table>();
