@@ -2,9 +2,9 @@ package api;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Date;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -91,9 +91,25 @@ public class ServletListener implements ServletContextListener {
             e.printStackTrace();
         }
         System.out.println("end!");
+        
+        new TimeThread().start();
 
     }
 
+    public class TimeThread extends Thread {
+        @Override
+        public void run() {
+            try {
+                while (true) {
+                    Constants.time = Constants.ANS_TITLE
+                            + Constants.FORMAT.format(new Date()) + "\n";
+                    Thread.sleep(500);
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
     public void contextDestroyed(ServletContextEvent arg0) {
     }
 
