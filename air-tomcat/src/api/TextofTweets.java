@@ -25,23 +25,20 @@ public class TextofTweets {
 	public String tweets(@QueryParam("time") String time) {
 
 		StringBuilder builder = new StringBuilder(Constants.ANS_TITLE);
-		//byte[] result = null;
-		ResultSet rs;
-        try {
-            Statement st = Constants.conn.createStatement();
-
-            rs = st.executeQuery(Constants.queryPrefix + time + "\"");
-            while (rs.next())
-            {
-                //Blob b = rs.getString(1);
-                //result = b.getBytes(1, (int) b.length());
-                builder.append(rs.getString(1));
+		if (time != null) {
+    		ResultSet rs;
+            try {
+                Statement st = Constants.conn.createStatement();
+    
+                rs = st.executeQuery(Constants.queryPrefix + time + "\"");
+                while (rs.next())
+                {
+                    builder.append(rs.getString(1));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-            //rs.close();
-            //st.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+		}
 
 		return builder.toString();
 	}
