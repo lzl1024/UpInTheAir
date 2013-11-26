@@ -1,5 +1,6 @@
 package api;
 
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -12,7 +13,11 @@ import javax.ws.rs.core.MediaType;
 
 import util.Constants;
 
+import com.sun.jersey.spi.resource.Singleton;
+
+
 @Path("q2")
+@Singleton
 public class TextofTweets {
 
 	/**
@@ -28,8 +33,13 @@ public class TextofTweets {
 		if (time != null) {
     		ResultSet rs;
             try {
-                Statement st = Constants.conn.createStatement();
-    
+            	if (Constants.conn.isClosed()) {
+            		Constants.conn = DriverManager.getConnection(Constants.url, Constants.username,
+            				Constants.password);
+            	}	
+            	
+            	Statement st = Constants.conn.createStatement();
+            	
                 rs = st.executeQuery(Constants.queryPrefix + time + "\"");
                 while (rs.next())
                 {

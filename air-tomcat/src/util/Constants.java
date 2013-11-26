@@ -22,5 +22,8 @@ public class Constants {
 	public static String queryPrefix = "SELECT tweet FROM time_tweet WHERE time=\"";
 	public static String DBName = "cloud_project";
 	public static String cellName = "tweet";
+	public static String url = "jdbc:mysql://127.0.0.1:3306/cloud_project";
+    public static String username = "root";
+    public static String password = "password";
 	
 }

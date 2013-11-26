@@ -21,12 +21,9 @@ public class ServletListener implements ServletContextListener {
             e.printStackTrace();
         }
 
-        String url = "jdbc:mysql://127.0.0.1:3306/"+Constants.DBName;
-        String username = "root";
-        String password = "password";
         try {
-            Constants.conn = DriverManager.getConnection(url, username,
-                    password);
+            Constants.conn = DriverManager.getConnection(Constants.url, Constants.username,
+            		Constants.password);
         } catch (SQLException se) {
             se.printStackTrace();
         }
@@ -92,24 +89,8 @@ public class ServletListener implements ServletContextListener {
         }
         System.out.println("end!");
         
-        new TimeThread().start();
-
     }
 
-    public class TimeThread extends Thread {
-        @Override
-        public void run() {
-            try {
-                while (true) {
-                    Constants.time = Constants.ANS_TITLE
-                            + Constants.FORMAT.format(new Date()) + "\n";
-                    Thread.sleep(500);
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
     public void contextDestroyed(ServletContextEvent arg0) {
     }
 
