@@ -45,6 +45,7 @@ public class TextofTweets {
                 {
                     builder.append(rs.getString(1));
                 }
+                st.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
